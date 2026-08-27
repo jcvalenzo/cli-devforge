@@ -1,67 +1,105 @@
-# devforge
+# devforge / cli-devforge
+
+Generador de scaffolds de proyecto basado en convenciones de nombres por prefijos.
 
 Project scaffold generator based on prefix-based naming conventions.
 
-## Installation
+---
+
+## Instalación Rápida / Quick Install
+
+**macOS / Linux:**
+
+```bash
+git clone https://github.com/jcvalenzo/cli-devforge.git
+cd cli-devforge
+make install
+```
+
+**Windows (Git Bash / WSL):**
+
+```bash
+git clone https://github.com/jcvalenzo/cli-devforge.git
+cd cli-devforge
+make install
+```
+
+**Go directo / Direct Go:**
 
 ```bash
 go install github.com/jcvalenzo/cli-devforge@latest
 ```
 
-## Usage
+Para instrucciones detalladas por sistema operativo, ver [INSTALL.md](INSTALL.md).
+
+For detailed per-OS instructions, see [INSTALL.md](INSTALL.md).
+
+---
+
+## Uso / Usage
 
 ```bash
-# Create a project
+# Crear un proyecto / Create a project
 devforge create api-catalog --lang go --author "yourname"
 devforge create ms-auth --lang java --author "yourname"
 devforge create web-admin --lang node --author "yourname"
 devforge create worker-email --lang python --author "yourname"
 
-# List available prefixes
+# Listar prefijos / List prefixes
 devforge list
 
-# Show version
+# Ver versión / Show version
 devforge version
 ```
 
-## Available Prefixes
+---
 
-| Prefix | Description | Languages |
-|--------|-------------|-----------|
-| `app-` | Aplicacion completa | go, java |
-| `api-` | API (monolito o API simple) | go, java |
-| `ms-` | Microservicio | go, java |
+## Prefijos Disponibles / Available Prefixes
+
+| Prefijo / Prefix | Significado / Meaning | Idiomas / Languages |
+|------------------|-----------------------|---------------------|
+| `app-` | Aplicación completa / Full application | go, java |
+| `api-` | API (monolito o simple) / API (monolith or simple) | go, java |
+| `ms-` | Microservicio / Microservice | go, java |
 | `web-` | Frontend web | node, go |
-| `worker-` | Proceso asincrono | go, python |
-| `scheduler-` | Tareas programadas | go |
-| `lib-` | Libreria compartida | go, java |
-| `cli-` | Herramienta CLI | go |
-| `infra-` | Infraestructura | terraform |
-| `k8s-` | Manifiestos Kubernetes | yaml |
+| `worker-` | Proceso asíncrono / Async process | go, python |
+| `scheduler-` | Tareas programadas / Scheduled tasks | go |
+| `lib-` | Librería compartida / Shared library | go, java |
+| `cli-` | Herramienta CLI / CLI tool | go |
+| `infra-` | Infraestructura / Infrastructure | terraform |
+| `k8s-` | Manifiestos Kubernetes / Kubernetes manifests | yaml |
 | `helm-` | Helm Charts | yaml |
-| `docker-` | Dockerfiles e imagenes | dockerfile |
-| `monitoring-` | Observabilidad | prometheus |
+| `docker-` | Dockerfiles e imágenes / Dockerfiles & images | dockerfile |
+| `monitoring-` | Observabilidad / Observability | prometheus |
 
-## Development
+---
+
+## Desarrollo / Development
 
 ```bash
-# Build
-go build -o bin/devforge .
+# Compilar / Build
+make build
 
-# Run tests
-go test ./...
+# Ejecutar tests / Run tests
+make test
 
-# List commands
-./bin/devforge --help
+# Compilar + testear / Build + test
+make all
+
+# Limpiar / Clean
+make clean
 ```
 
-## Adding a New Prefix
+---
 
-1. Create template directory: `templates/<prefix>/<lang>/`
-2. Add `.tmpl` files with Go template syntax
-3. Register in `internal/prefix/registry.go`
-4. Add embed directive in `templates/embed.go`
+## Contribuir / Contributing
 
-## License
+Ver [AGENTS.md](AGENTS.md) para guías de desarrollo y arquitectura del proyecto.
+
+See [AGENTS.md](AGENTS.md) for development guidelines and project architecture.
+
+---
+
+## Licencia / License
 
 MIT
