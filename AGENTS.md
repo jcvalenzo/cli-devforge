@@ -43,4 +43,7 @@ El valor de `VERSION` viene de `git describe --tags --always --dirty`.
 
 ## Linter Config
 
-Archivo `.golangci.yml` habilita: errcheck, gosimple, govet, ineffassign, staticcheck, unused, gocritic, gofmt, goimports. Archivos de test excluidos de errcheck.
+Archivo `.golangci.yml` (v2) habilita:
+- **Linters**: errcheck, govet, ineffassign, staticcheck, unused, misspell
+- **Formatters**: gofmt, goimports
+- Archivos de test excluidos de errcheck (`linters.exclusions.rules`)

@@ -99,7 +99,7 @@ cli-devforge version
 | `producer-` | Publicador de eventos / Event publisher | go |
 | `consumer-` | Consumidor de eventos / Event consumer | go |
 | `stream-` | Procesamiento de streams / Stream processing | go |
-| `connector-` | Integración con terceros / Third-party integration | go |
+| `connector-` | Integration with third parties | go |
 | `bridge-` | Puente entre sistemas/brokers / System/broker bridge | go |
 | `adapter-` | Adaptador a servicio externo / External service adapter | go |
 

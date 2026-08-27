@@ -134,7 +134,7 @@ var registry = []Prefix{
 	},
 	{
 		Name:        "connector",
-		Description: "Integracion con terceros",
+		Description: "Integration with third parties",
 		Langs:       []string{"go"},
 		DefaultLang: "go",
 		TemplateDir: "connector",
