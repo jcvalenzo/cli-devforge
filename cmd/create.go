@@ -44,14 +44,14 @@ Examples:
 		}
 
 		opts := scaffold.Options{
-			FullName:   name,
-			Prefix:     p.Name,
+			FullName:    name,
+			Prefix:      p.Name,
 			ProjectName: projectName,
-			Lang:       lang,
-			Author:     author,
-			ModulePath: modulePath,
-			License:    license,
-			OutputDir:  outputDir,
+			Lang:        lang,
+			Author:      author,
+			ModulePath:  modulePath,
+			License:     license,
+			OutputDir:   outputDir,
 			Description: p.Description,
 		}
 
@@ -59,7 +59,19 @@ Examples:
 			return err
 		}
 
-		fmt.Printf("Project %q created successfully in ./%s/%s\n", name, outputDir, name)
+		fmt.Printf("\nProject %q created successfully in ./%s/%s\n\n", name, outputDir, name)
+		fmt.Println("Next steps:")
+		fmt.Printf("  cd %s\n", name)
+		fmt.Println("  git init")
+		fmt.Println("  git add .")
+		fmt.Println("  git commit -m \"Initial commit\"")
+		fmt.Println()
+		fmt.Println("Push to GitHub:")
+		fmt.Printf("  gh repo create %s --public --source=. --remote=origin --push\n", name)
+		fmt.Println()
+		fmt.Println("Or configure remote manually:")
+		fmt.Printf("  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/%s.git\n", name)
+		fmt.Println()
 		return nil
 	},
 }

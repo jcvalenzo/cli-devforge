@@ -1,0 +1,27 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+)
+
+func main() {
+	fmt.Println("Stream processor {{.FullName}} started")
+
+	stream := "{{.ProjectName}}"
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		for {
+			// TODO: Implement stream processing logic
+			fmt.Printf("Processing stream %s\n", stream)
+		}
+	}()
+
+	sig := <-sigCh
+	fmt.Printf("Received %s, shutting down...\n", sig)
+}
