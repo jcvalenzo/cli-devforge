@@ -1,0 +1,27 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+)
+
+func main() {
+	fmt.Println("Producer {{.FullName}} started")
+
+	topic := "{{.ProjectName}}"
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		for {
+			// TODO: Implement event publishing logic
+			fmt.Printf("Publishing event to topic %s\n", topic)
+		}
+	}()
+
+	sig := <-sigCh
+	fmt.Printf("Received %s, shutting down...\n", sig)
+}

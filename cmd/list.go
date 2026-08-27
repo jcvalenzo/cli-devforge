@@ -12,14 +12,14 @@ import (
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all available prefixes",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
-		fmt.Fprintln(w, "PREFIX\tDESCRIPTION\tLANGUAGES")
-		fmt.Fprintln(w, "------\t-----------\t---------")
+		_, _ = fmt.Fprintln(w, "PREFIX\tDESCRIPTION\tLANGUAGES")
+		_, _ = fmt.Fprintln(w, "------\t-----------\t---------")
 		for _, p := range prefix.All() {
-			fmt.Fprintf(w, "%s\t%s\t%s\n", p.Name+"-", p.Description, joinLangs(p.Langs))
+			_, _ = fmt.Fprintf(w, "%s\t%s\t%s\n", p.Name+"-", p.Description, joinLangs(p.Langs))
 		}
-		w.Flush()
+		return w.Flush()
 	},
 }
 

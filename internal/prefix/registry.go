@@ -111,6 +111,48 @@ var registry = []Prefix{
 		DefaultLang: "prometheus",
 		TemplateDir: "monitoring",
 	},
+	{
+		Name:        "producer",
+		Description: "Publicador de eventos",
+		Langs:       []string{"go"},
+		DefaultLang: "go",
+		TemplateDir: "producer",
+	},
+	{
+		Name:        "consumer",
+		Description: "Consumidor de eventos",
+		Langs:       []string{"go"},
+		DefaultLang: "go",
+		TemplateDir: "consumer",
+	},
+	{
+		Name:        "stream",
+		Description: "Procesamiento de streams",
+		Langs:       []string{"go"},
+		DefaultLang: "go",
+		TemplateDir: "stream",
+	},
+	{
+		Name:        "connector",
+		Description: "Integration with third parties",
+		Langs:       []string{"go"},
+		DefaultLang: "go",
+		TemplateDir: "connector",
+	},
+	{
+		Name:        "bridge",
+		Description: "Puente entre sistemas/brokers",
+		Langs:       []string{"go"},
+		DefaultLang: "go",
+		TemplateDir: "bridge",
+	},
+	{
+		Name:        "adapter",
+		Description: "Adaptador a un servicio externo",
+		Langs:       []string{"go"},
+		DefaultLang: "go",
+		TemplateDir: "adapter",
+	},
 }
 
 // All returns all registered prefixes.
