@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: {{.FullName}}
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: {{.ProjectName}}.example.com
+      paths:
+        - path: /
+          pathType: Prefix

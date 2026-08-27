@@ -1,0 +1,13 @@
+.PHONY: build run test clean
+
+build:
+	go build -o bin/{{.ProjectName}} ./cmd/scheduler
+
+run:
+	go run ./cmd/scheduler
+
+test:
+	go test ./...
+
+clean:
+	rm -rf bin/

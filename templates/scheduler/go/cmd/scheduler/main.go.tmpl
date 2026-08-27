@@ -1,0 +1,18 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	fmt.Println("Scheduler {{.FullName}} started")
+
+	ticker := time.NewTicker(1 * time.Hour)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		// TODO: Implement scheduled task
+		fmt.Printf("[%s] Running scheduled task\n", time.Now().Format(time.RFC3339))
+	}
+}

@@ -1,0 +1,26 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+)
+
+func main() {
+	fmt.Println("Worker {{.FullName}} started")
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		for {
+			// TODO: Implement work processing logic
+			fmt.Println("Processing work...")
+		}
+	}()
+
+	sig := <-sigCh
+	fmt.Printf("Received %s, shutting down...\n", sig)
+}
