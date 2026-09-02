@@ -39,7 +39,14 @@ El valor de `VERSION` viene de `git describe --tags --always --dirty`.
 ## CI/CD
 
 - **ci.yml**: Trigger en push/PR a cualquier branch. Jobs paralelos: build, test, vet, fmt, lint (usa `golangci-lint-action@v9` con `version: v2.12`).
-- **release.yml**: Trigger en tag `v*.*.*`. Cross-compile + checksums + GitHub Release.
+- **auto-release.yml**: Trigger en push a `main`. Calcula la versión semántica desde los últimos commits, crea el tag `vX.Y.Z`, lo pushea y genera la GitHub Release con binarios multi-platform + checksums.
+- **release.yml**: Trigger en push manual de tag `v*.*.*`. Cross-compile + checksums + GitHub Release (fallback manual).
+
+## Gitflow
+
+```
+feature/* → PR → develop → PR → main  (auto-tag + release en main)
+```
 
 ## Linter Config
 

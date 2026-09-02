@@ -163,7 +163,8 @@ El proyecto incluye workflows de GitHub Actions:
 | Workflow | Trigger | Checks |
 |----------|---------|--------|
 | `ci.yml` | Push a cualquier branch, PR | build, test, vet, fmt, lint |
-| `release.yml` | Push de tag `v*.*.*` | Build multi-platform + GitHub Release |
+| `auto-release.yml` | Push a `main` | Auto-tag + build multi-platform + GitHub Release |
+| `release.yml` | Push manual de tag `v*.*.*` | Build multi-platform + GitHub Release (fallback) |
 
 ### Checks del CI
 
@@ -177,17 +178,38 @@ El proyecto incluye workflows de GitHub Actions:
 
 ## Releases
 
-Para crear un release:
+### Flujo automático (recomendado)
+
+Los tags y releases se generan automáticamente al hacer merge a la rama `main`:
+
+```
+feature/* → PR → develop → PR → main (auto-tag + release)
+```
+
+Al push a `main`, GitHub Actions:
+1. Calcula la siguiente versión semántica según los commits desde el último tag
+2. Crea y pushea el tag `vX.Y.Z`
+3. Compila binarios para linux/darwin/windows (amd64 + arm64)
+4. Genera checksums
+5. Crea la GitHub Release con los binarios y release notes
+
+**Estrategia de versionado:**
+
+| Tipo de commit | Bump |
+|----------------|------|
+| `BREAKING CHANGE:` o `MAJOR:` | major |
+| `feature:` o `feat:` | minor |
+| resto (`fix:`, `docs:`, etc.) | patch |
+| sin tags previos | v0.1.0 |
+
+### Release manual (fallback)
+
+También puedes crear un release manualmente con un tag:
 
 ```bash
 git tag v1.0.0
 git push origin v1.0.0
 ```
-
-GitHub Actions automaticamente:
-1. Compila binarios para linux/darwin/windows (amd64 + arm64)
-2. Genera checksums
-3. Crea una GitHub Release con los binarios y release notes
 
 ---
 
