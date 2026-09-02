@@ -102,6 +102,7 @@ cli-devforge version
 | `connector-` | Integration with third parties | go |
 | `bridge-` | Puente entre sistemas/brokers / System/broker bridge | go |
 | `adapter-` | Adaptador a servicio externo / External service adapter | go |
+| `lab-` | Laboratorio / pruebas de cosas / Laboratory & experimentation | go, java, python, react |
 
 ---
 
