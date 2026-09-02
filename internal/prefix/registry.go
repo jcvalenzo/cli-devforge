@@ -153,6 +153,13 @@ var registry = []Prefix{
 		DefaultLang: "go",
 		TemplateDir: "adapter",
 	},
+	{
+		Name:        "lab",
+		Description: "Laboratorio / pruebas de cosas",
+		Langs:       []string{"go", "java", "python", "react"},
+		DefaultLang: "go",
+		TemplateDir: "lab",
+	},
 }
 
 // All returns all registered prefixes.
