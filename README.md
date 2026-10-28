@@ -90,7 +90,7 @@ cli-devforge version
 | `worker-` | Proceso asíncrono / Async process | go, python |
 | `scheduler-` | Tareas programadas / Scheduled tasks | go |
 | `lib-` | Librería compartida / Shared library | go, java |
-| `cli-` | Herramienta CLI / CLI tool | go |
+| `cli-` | Herramienta CLI / CLI tool | go, java |
 | `infra-` | Infraestructura / Infrastructure | terraform |
 | `k8s-` | Manifiestos Kubernetes / Kubernetes manifests | yaml |
 | `helm-` | Helm Charts | yaml |

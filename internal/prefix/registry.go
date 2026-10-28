@@ -72,7 +72,7 @@ var registry = []Prefix{
 	{
 		Name:        "cli",
 		Description: "Herramienta CLI",
-		Langs:       []string{"go"},
+		Langs:       []string{"go", "java"},
 		DefaultLang: "go",
 		TemplateDir: "cli",
 	},
