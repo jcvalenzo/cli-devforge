@@ -98,7 +98,7 @@ cli-devforge version
 | `monitoring-` | Observabilidad / Observability | prometheus |
 | `producer-` | Publicador de eventos / Event publisher | go |
 | `consumer-` | Consumidor de eventos / Event consumer | go |
-| `stream-` | Procesamiento de streams / Stream processing | go |
+| `stream-` | Procesamiento de streams / Stream processing | go, java |
 | `connector-` | Integration with third parties | go |
 | `bridge-` | Puente entre sistemas/brokers / System/broker bridge | go |
 | `adapter-` | Adaptador a servicio externo / External service adapter | go |
@@ -210,6 +210,85 @@ También puedes crear un release manualmente con un tag:
 git tag v1.0.0
 git push origin v1.0.0
 ```
+
+---
+
+## Actualizar la aplicación / Updating the application
+
+Cuando se fusiona un PR de `develop` a `main`, el workflow *Auto Release* genera automáticamente una nueva versión `vX.Y.Z` con sus binarios para macOS, Linux y Windows.
+
+### Opciones para actualizar / Update options
+
+#### 1) Con `go install` (recomendado / recommended)
+Si tienes Go instalado, esta es la forma más sencilla y multiplataforma:
+
+```bash
+go install github.com/jcvalenzo/cli-devforge@latest
+```
+
+Asegúrate de tener `$GOPATH/bin` (o `$HOME/go/bin`) en tu `PATH`. / Make sure `$GOPATH/bin` (or `$HOME/go/bin`) is in your `PATH`.
+
+#### 2) Con `make install` desde el repositorio local / From local repo with `make install`
+Si clonaste el repositorio y usaste `make install` anteriormente:
+
+```bash
+cd cli-devforge
+git checkout main
+git pull origin main
+make install
+```
+
+#### 3) Descargando el binario desde GitHub Releases (manual) / Download from GitHub Releases (manual)
+Descarga la última versión desde [GitHub Releases](https://github.com/jcvalenzo/cli-devforge/releases/latest). Elige el binario correcto según tu sistema operativo y arquitectura:
+
+| Sistema Operativo / OS | Arquitectura / Arch | Archivo a descargar / File |
+|-------------------------|---------------------|----------------------------|
+| macOS | Intel (x86_64) | `devforge-darwin-amd64` |
+| macOS | Apple Silicon (arm64) | `devforge-darwin-arm64` |
+| Linux | x86_64 | `devforge-linux-amd64` |
+| Linux | ARM64 | `devforge-linux-arm64` |
+| Windows | x86_64 | `devforge-windows-amd64.exe` |
+
+**macOS / Linux:**
+
+```bash
+chmod +x devforge-<os>-<arch>
+# Mover a un directorio en PATH (ej. ~/.local/bin o /usr/local/bin)
+mv devforge-<os>-<arch> ~/.local/bin/cli-devforge
+```
+
+> **Nota macOS (Gatekeeper):** Si el sistema bloquea la ejecución, puedes quitar la cuarentena:
+> ```bash
+> xattr -d com.apple.quarantine ~/.local/bin/cli-devforge
+> ```
+> O bien permitirlo desde *Configuración del Sistema → Privacidad y Seguridad*.
+> 
+> **Note macOS (Gatekeeper):** If macOS blocks execution, remove the quarantine attribute or allow it in *System Settings → Privacy & Security*.
+
+**Windows:**
+
+1. Renombra `devforge-windows-amd64.exe` a `cli-devforge.exe`. / Rename `devforge-windows-amd64.exe` to `cli-devforge.exe`.
+2. Colócalo en un directorio incluido en tu `PATH` (ej. `C:\Users\<usuario>\go\bin\` o `C:\tools\`). / Place it in a directory in your `PATH` (e.g. `C:\Users\<user>\go\bin\` or `C:\tools\`).
+3. Si Windows SmartScreen aparece, selecciona *Más información → Ejecutar de todas formas*. / If Windows SmartScreen appears, click *More info → Run anyway*.
+
+**Verificar integridad (opcional) / Verify integrity (optional):**
+
+```bash
+sha256sum -c checksums.txt  # Linux/macOS
+```
+
+En Windows puedes comparar el hash con herramientas como `Get-FileHash` en PowerShell.
+
+### Verificar la versión instalada / Verify installed version
+
+```bash
+cli-devforge version
+# o / or
+devforge version
+```
+
+Para más detalles por sistema operativo, consulta [INSTALL.md](INSTALL.md).  
+For detailed per-OS instructions, see [INSTALL.md](INSTALL.md).
 
 ---
 
