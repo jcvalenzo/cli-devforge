@@ -128,7 +128,7 @@ var registry = []Prefix{
 	{
 		Name:        "stream",
 		Description: "Procesamiento de streams",
-		Langs:       []string{"go"},
+		Langs:       []string{"go", "java"},
 		DefaultLang: "go",
 		TemplateDir: "stream",
 	},
