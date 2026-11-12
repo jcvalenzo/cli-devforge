@@ -1,0 +1,6 @@
+create
+k8s-sample
+--lang
+yaml
+--author
+Test Author

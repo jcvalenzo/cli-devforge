@@ -1,0 +1,22 @@
+  created  .gitignore
+  created  Dockerfile
+  created  Makefile
+  created  README.md
+  created  cmd/server/main.go
+  created  go.mod
+  created  internal/handler/handler.go
+
+Project "api-catalog" created successfully in ./out/api-catalog
+
+Next steps:
+  cd api-catalog
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create api-catalog --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/api-catalog.git
+

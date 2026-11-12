@@ -1,0 +1,6 @@
+create
+web-sample
+--lang
+node
+--author
+Test Author

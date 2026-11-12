@@ -1,0 +1,6 @@
+create
+stream-sample
+--lang
+go
+--author
+Test Author

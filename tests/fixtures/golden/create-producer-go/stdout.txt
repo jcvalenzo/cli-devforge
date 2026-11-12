@@ -1,0 +1,20 @@
+  created  Dockerfile
+  created  Makefile
+  created  README.md
+  created  cmd/producer/main.go
+  created  go.mod
+
+Project "producer-sample" created successfully in ././producer-sample
+
+Next steps:
+  cd producer-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create producer-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/producer-sample.git
+

@@ -1,0 +1,22 @@
+  created  .gitignore
+  created  Dockerfile
+  created  Makefile
+  created  README.md
+  created  cmd/server/main.go
+  created  go.mod
+  created  internal/handler/handler.go
+
+Project "api-sample" created successfully in ././api-sample
+
+Next steps:
+  cd api-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create api-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/api-sample.git
+

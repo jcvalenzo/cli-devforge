@@ -1,0 +1,16 @@
+  created  prometheus.yml
+
+Project "monitoring-sample" created successfully in ././monitoring-sample
+
+Next steps:
+  cd monitoring-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create monitoring-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/monitoring-sample.git
+

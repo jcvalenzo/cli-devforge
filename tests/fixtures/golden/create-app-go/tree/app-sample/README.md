@@ -1,0 +1,41 @@
+# app-sample
+
+Aplicacion completa
+
+## Project Structure
+
+```
+├── cmd/server/       # Application entrypoint
+├── internal/
+│   ├── handler/      # HTTP handlers
+│   └── service/      # Business logic
+├── Makefile
+├── Dockerfile
+└── README.md
+```
+
+## Getting Started
+
+```bash
+make run
+```
+
+## Build
+
+```bash
+make build
+```
+
+## Test
+
+```bash
+make test
+```
+
+## Author
+
+Test Author
+
+## License
+
+MIT

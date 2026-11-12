@@ -1,0 +1,18 @@
+  created  main.tf
+  created  outputs.tf
+  created  variables.tf
+
+Project "infra-sample" created successfully in ././infra-sample
+
+Next steps:
+  cd infra-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create infra-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/infra-sample.git
+

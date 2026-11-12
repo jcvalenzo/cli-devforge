@@ -8,8 +8,15 @@ Complete installation and uninstallation guide by operating system.
 
 ## Prerrequisitos / Prerequisites
 
-- **Go** >= 1.22 ([https://go.dev/dl/](https://go.dev/dl/))
+- **Rust** stable ([https://rustup.rs/](https://rustup.rs/))
 - **Git** (para clonar el repositorio / to clone the repository)
+
+Instala Rust con `rustup` / Install Rust with `rustup`:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+```
 
 ---
 
@@ -25,21 +32,30 @@ cd cli-devforge
 make install
 ```
 
-El binario se instala en `~/go/bin/cli-devforge`.
+El binario se instala en `~/.cargo/bin/devforge`.
 
-The binary is installed to `~/go/bin/cli-devforge`.
+The binary is installed to `~/.cargo/bin/devforge`.
 
-**Opción 2: go install directo / Direct go install**
+**Opción 2: cargo install directo / Direct cargo install**
 
 ```bash
-go install github.com/jcvalenzo/cli-devforge@latest
+cargo install --git https://github.com/jcvalenzo/cli-devforge --locked
+```
+
+**Opción 3: compilar desde el repositorio / Build from the repository**
+
+```bash
+git clone https://github.com/jcvalenzo/cli-devforge.git
+cd cli-devforge
+make build
+./bin/devforge version
 ```
 
 **Verificar / Verify:**
 
 ```bash
-~/go/bin/cli-devforge version
-# → devforge dev
+~/.cargo/bin/devforge version
+# → devforge v0.5.0 o devforge dev
 ```
 
 **Agregar al PATH (opcional / optional):**
@@ -49,34 +65,33 @@ Agrega esto a tu `~/.zshrc` o `~/.bash_profile`:
 Add this to your `~/.zshrc` or `~/.bash_profile`:
 
 ```bash
-export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
 Luego ejecuta / Then run:
 
 ```bash
 source ~/.zshrc  # o source ~/.bash_profile
-cli-devforge version
+devforge version
 ```
 
 ### Desinstalar / Uninstall
 
 ```bash
 # 1. Eliminar el binario / Remove the binary
-rm -f ~/go/bin/cli-devforge
+cargo uninstall devforge
 
 # 2. Eliminar archivos compilados del repo (si existen) / Remove build artifacts (if any)
 cd cli-devforge && make clean
 
-# 3. (Opcional) Eliminar la línea de PATH de tu shell config
-# (Optional) Remove the PATH line from your shell config
-# Busca y elimina: export PATH="$HOME/go/bin:$PATH"
+# 3. Eliminar el binario legado de Go (si existe) / Remove legacy Go binary (if any)
+rm -f ~/go/bin/cli-devforge
 ```
 
 **Verificar desinstalación / Verify uninstall:**
 
 ```bash
-which cli-devforge 2>/dev/null && echo "Aún instalado / Still installed" || echo "Desinstalado / Uninstalled"
+which devforge 2>/dev/null && echo "Aún instalado / Still installed" || echo "Desinstalado / Uninstalled"
 ```
 
 ---
@@ -85,65 +100,41 @@ which cli-devforge 2>/dev/null && echo "Aún instalado / Still installed" || ech
 
 ### Instalar / Install
 
-**Opción 1: make install (recomendado / recommended)**
-
 ```bash
 git clone https://github.com/jcvalenzo/cli-devforge.git
 cd cli-devforge
 make install
 ```
 
-El binario se instala en `~/go/bin/cli-devforge`.
+El binario se instala en `~/.cargo/bin/devforge`.
 
-The binary is installed to `~/go/bin/cli-devforge`.
+The binary is installed to `~/.cargo/bin/devforge`.
 
-**Opción 2: go install directo / Direct go install**
+Alternativa / Alternative:
 
 ```bash
-go install github.com/jcvalenzo/cli-devforge@latest
+cargo install --git https://github.com/jcvalenzo/cli-devforge --locked
 ```
 
 **Verificar / Verify:**
 
 ```bash
-~/go/bin/cli-devforge version
-# → devforge dev
+~/.cargo/bin/devforge version
 ```
 
 **Agregar al PATH (opcional / optional):**
 
-Agrega esto a tu `~/.bashrc`:
-
-Add this to your `~/.bashrc`:
-
 ```bash
-export PATH="$HOME/go/bin:$PATH"
-```
-
-Luego ejecuta / Then run:
-
-```bash
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
-cli-devforge version
 ```
 
 ### Desinstalar / Uninstall
 
 ```bash
-# 1. Eliminar el binario / Remove the binary
-rm -f ~/go/bin/cli-devforge
-
-# 2. Eliminar archivos compilados del repo / Remove build artifacts
+cargo uninstall devforge
 cd cli-devforge && make clean
-
-# 3. (Opcional) Eliminar la línea de PATH de tu ~/.bashrc
-# (Optional) Remove the PATH line from your ~/.bashrc
-```
-
-**Verificar desinstalación / Verify uninstall:**
-
-```bash
-which cli-devforge 2>/dev/null && echo "Aún instalado / Still installed" || echo "Desinstalado / Uninstalled"
+rm -f ~/go/bin/cli-devforge
 ```
 
 ---
@@ -152,80 +143,48 @@ which cli-devforge 2>/dev/null && echo "Aún instalado / Still installed" || ech
 
 ### Instalar / Install
 
-**Opción 1: make install (recomendado / recommended)**
-
 ```bash
 git clone https://github.com/jcvalenzo/cli-devforge.git
 cd cli-devforge
 make install
 ```
 
-El binario se instala en `~/go/bin/cli-devforge`.
+El binario se instala en `~/.cargo/bin/devforge`.
 
-The binary is installed to `~/go/bin/cli-devforge`.
+The binary is installed to `~/.cargo/bin/devforge`.
 
-**Opción 2: go install directo / Direct go install**
-
-```bash
-go install github.com/jcvalenzo/cli-devforge@latest
-```
-
-**Verificar / Verify:**
+Alternativa / Alternative:
 
 ```bash
-~/go/bin/cli-devforge version
-# → devforge dev
+cargo install --git https://github.com/jcvalenzo/cli-devforge --locked
 ```
 
 **Agregar al PATH (opcional / optional):**
 
-Agrega esto a tu `~/.bashrc` o `~/.bash_profile`:
-
-Add this to your `~/.bashrc` or `~/.bash_profile`:
-
 ```bash
-export PATH="$HOME/go/bin:$PATH"
-```
-
-Luego ejecuta / Then run:
-
-```bash
-source ~/.bashrc  # o source ~/.bash_profile
-cli-devforge version
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ### Desinstalar / Uninstall
 
 ```bash
-# 1. Eliminar el binario / Remove the binary
-rm -f ~/go/bin/cli-devforge
-
-# 2. Eliminar archivos compilados del repo / Remove build artifacts
+cargo uninstall devforge
 cd cli-devforge && make clean
-
-# 3. (Opcional) Eliminar la línea de PATH de tu shell config
-# (Optional) Remove the PATH line from your shell config
-```
-
-**Verificar desinstalación / Verify uninstall:**
-
-```bash
-which cli-devforge 2>/dev/null && echo "Aún instalado / Still installed" || echo "Desinstalado / Uninstalled"
+rm -f ~/go/bin/cli-devforge
 ```
 
 ---
 
 ## Linux (Universal - build from source)
 
-Si no tienes Go instalado, compila desde el código fuente:
+Si no quieres instalar en `~/.cargo/bin`, compila y copia el binario:
 
-If you don't have Go installed, build from source:
-
-### Instalar / Install
+If you don't want to install into `~/.cargo/bin`, build and copy the binary:
 
 ```bash
-# 1. Instalar Go (si no está) / Install Go (if not present)
-# Visita / Visit: https://go.dev/dl/
+# 1. Instalar Rust (si no está) / Install Rust (if not present)
+# Visita / Visit: https://rustup.rs/
 
 # 2. Clonar y compilar / Clone and build
 git clone https://github.com/jcvalenzo/cli-devforge.git
@@ -243,10 +202,7 @@ devforge version
 ### Desinstalar / Uninstall
 
 ```bash
-# 1. Eliminar el binario del sistema / Remove system binary
 sudo rm -f /usr/local/bin/devforge
-
-# 2. Eliminar archivos compilados del repo / Remove build artifacts
 cd cli-devforge && make clean
 ```
 
@@ -264,109 +220,140 @@ cd cli-devforge
 make install
 ```
 
-El binario se instala en `%GOPATH%\bin\cli-devforge.exe`.
+El binario se instala en `%USERPROFILE%\.cargo\bin\devforge.exe`.
 
-The binary is installed to `%GOPATH%\bin\cli-devforge.exe`.
+The binary is installed to `%USERPROFILE%\.cargo\bin\devforge.exe`.
 
 **Opción 2: PowerShell**
 
 ```powershell
 git clone https://github.com/jcvalenzo/cli-devforge.git
 cd cli-devforge
-go build -o bin\devforge.exe .
-go install .
+cargo install --path . --locked
+```
+
+**Opción 3: compilar sin instalar / Build without installing**
+
+```powershell
+cargo build --release --locked
+.\target\release\devforge.exe version
 ```
 
 **Verificar / Verify:**
 
 ```powershell
-cli-devforge version
-# → devforge dev
+devforge version
+# → devforge v0.5.0 o devforge dev
 ```
 
 **Agregar al PATH (si no está / if not present):**
 
-1. Busca `%GOPATH%\bin` (usualmente `C:\Users\<tu-usuario>\go\bin`)
+1. Busca `%USERPROFILE%\.cargo\bin` (usualmente `C:\Users\<tu-usuario>\.cargo\bin`)
 2. Agrégalo a las Variables de Sistema > Path
 
-Look for `%GOPATH%\bin` (usually `C:\Users\<your-user>\go\bin`)
+Look for `%USERPROFILE%\.cargo\bin` (usually `C:\Users\<your-user>\.cargo\bin`)
 Add it to System Variables > Path
 
 ### Desinstalar / Uninstall
 
 ```powershell
 # 1. Eliminar el binario / Remove the binary
-del %GOPATH%\bin\cli-devforge.exe
+cargo uninstall devforge
 
 # 2. Eliminar archivos compilados del repo / Remove build artifacts
 cd cli-devforge
-del /s /q bin\
-rmdir bin
+make clean
 ```
 
 **Verificar desinstalación / Verify uninstall:**
 
 ```powershell
-where cli-devforge 2>nul && echo "Aún instalado / Still installed" || echo "Desinstalado / Uninstalled"
+where devforge 2>nul && echo "Aún instalado / Still installed" || echo "Desinstalado / Uninstalled"
 ```
+
+---
+
+## Descargar binarios de GitHub Releases / Download from GitHub Releases
+
+Descarga el asset correspondiente desde [GitHub Releases](https://github.com/jcvalenzo/cli-devforge/releases/latest):
+
+| Sistema Operativo / OS | Arquitectura / Arch | Archivo / File |
+|-------------------------|---------------------|----------------|
+| macOS | Intel (x86_64) | `devforge-darwin-amd64` |
+| macOS | Apple Silicon (arm64) | `devforge-darwin-arm64` |
+| Linux | x86_64 | `devforge-linux-amd64` |
+| Linux | ARM64 | `devforge-linux-arm64` |
+| Windows | x86_64 | `devforge-windows-amd64.exe` |
+
+```bash
+chmod +x devforge-<os>-<arch>
+mv devforge-<os>-<arch> ~/.local/bin/devforge
+sha256sum -c checksums.txt
+```
+
+En Windows, renombra el `.exe` a `devforge.exe` y colócalo en un directorio de tu `PATH`.
+
+On Windows, rename the `.exe` to `devforge.exe` and place it in a directory in your `PATH`.
+
+---
+
+## Migración desde la versión Go / Migrating from the Go version
+
+La versión anterior se instalaba como `cli-devforge` en `~/go/bin` (o `%GOPATH%\bin`). La versión Rust usa `devforge` en `~/.cargo/bin`.
+
+The previous version installed `cli-devforge` into `~/go/bin` (or `%GOPATH%\bin`). The Rust version uses `devforge` in `~/.cargo/bin`.
+
+```bash
+rm -f ~/go/bin/cli-devforge
+which -a devforge cli-devforge
+```
+
+Si tienes ambos binarios, asegúrate de que `~/.cargo/bin` aparezca antes que `~/go/bin` en tu `PATH`.
+
+If both binaries exist, make sure `~/.cargo/bin` appears before `~/go/bin` in your `PATH`.
 
 ---
 
 ## Solución de Problemas / Troubleshooting
 
-### "command not found" / "cli-devforge is not recognized"
+### "command not found" / "devforge is not recognized"
 
 El binario no está en tu PATH.
 
 The binary is not in your PATH.
 
-**Solución / Fix:**
-
 ```bash
-# Verificar si el binario existe / Check if binary exists
-ls ~/go/bin/cli-devforge
-
-# Si existe, agregar al PATH / If it exists, add to PATH
-export PATH="$HOME/go/bin:$PATH"
-
-# Para hacerlo permanente, agrega la línea a tu shell config
-# To make it permanent, add the line to your shell config
+ls ~/.cargo/bin/devforge
+export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
 ### "permission denied" / "denied"
 
-**Solución / Fix:**
-
 ```bash
-chmod +x ~/go/bin/cli-devforge
+chmod +x ~/.cargo/bin/devforge
 ```
 
-### "go: command not found"
+### "cargo: command not found"
 
-Go no está instalado o no está en tu PATH.
+Rust no está instalado o no está en tu PATH.
 
-Go is not installed or not in your PATH.
-
-**Solución / Fix:**
+Rust is not installed or not in your PATH.
 
 ```bash
-# Verificar / Check
-go version
-
-# Si no se encuentra, instalar Go desde / If not found, install Go from
-# https://go.dev/dl/
+rustc --version
+cargo --version
+# Si no se encuentra / If not found: https://rustup.rs/
 ```
 
 ### "no templates found for <prefix>/<lang>"
 
-El lenguaje no es soportado para ese prefijo.
+El lenguaje no es soportado (o no tiene plantillas todavía) para ese prefijo.
 
-The language is not supported for that prefix.
-
-**Solución / Fix:**
+The language is not supported (or has no templates yet) for that prefix.
 
 ```bash
-# Listar prefijos y lenguajes soportados
-# List prefixes and supported languages
 devforge list
 ```
+
+> **Nota / Note:** `worker-` anuncia `python`, pero todavía no tiene plantillas. Usa `--lang go`.
+> `worker-` advertises `python`, but it has no templates yet. Use `--lang go`.

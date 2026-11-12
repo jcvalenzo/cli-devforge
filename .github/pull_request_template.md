@@ -18,6 +18,6 @@ Brief description of the changes.
 
 ## Checklist
 
-- [ ] `make all` pasa / passes
+- [ ] `make all` pasa / passes (`fmt-check`, `clippy`, `build`, `test`)
 - [ ] Tests agregados (si aplica) / Tests added (if applicable)
 - [ ] Documentacion actualizada (si aplica) / Documentation updated (if applicable)

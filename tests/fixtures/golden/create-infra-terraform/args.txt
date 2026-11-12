@@ -1,0 +1,6 @@
+create
+infra-sample
+--lang
+terraform
+--author
+Test Author
