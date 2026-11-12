@@ -1,0 +1,22 @@
+PREFIX       DESCRIPTION                      LANGUAGES
+------       -----------                      ---------
+app-         Aplicacion completa              go, java
+api-         API (monolito o API simple)      go, java
+ms-          Microservicio                    go, java
+web-         Frontend web                     node, go
+worker-      Proceso asincrono                go, python
+scheduler-   Tareas programadas               go
+lib-         Libreria compartida              go, java
+cli-         Herramienta CLI                  go, java
+infra-       Infraestructura                  terraform
+k8s-         Manifiestos Kubernetes           yaml
+helm-        Helm Charts                      yaml
+docker-      Dockerfiles e imagenes           dockerfile
+monitoring-  Observabilidad                   prometheus
+producer-    Publicador de eventos            go
+consumer-    Consumidor de eventos            go
+stream-      Procesamiento de streams         go, java
+connector-   Integration with third parties   go
+bridge-      Puente entre sistemas/brokers    go
+adapter-     Adaptador a un servicio externo  go
+lab-         Laboratorio / pruebas de cosas   go, java, python, react

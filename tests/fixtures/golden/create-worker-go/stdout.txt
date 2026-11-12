@@ -1,0 +1,20 @@
+  created  Dockerfile
+  created  Makefile
+  created  README.md
+  created  cmd/worker/main.go
+  created  go.mod
+
+Project "worker-sample" created successfully in ././worker-sample
+
+Next steps:
+  cd worker-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create worker-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/worker-sample.git
+

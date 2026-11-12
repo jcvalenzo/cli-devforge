@@ -1,0 +1,6 @@
+create
+lab-sample
+--lang
+react
+--author
+Test Author

@@ -1,0 +1,102 @@
+name: Release Build
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Tag to build and publish (for example, v0.5.0)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.asset }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            asset: devforge-linux-amd64
+            use_cross: false
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            asset: devforge-linux-arm64
+            use_cross: true
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            asset: devforge-darwin-amd64
+            use_cross: false
+          - os: macos-15
+            target: aarch64-apple-darwin
+            asset: devforge-darwin-arm64
+            use_cross: false
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            asset: devforge-windows-amd64.exe
+            use_cross: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Install cross
+        if: matrix.use_cross
+        uses: taiki-e/install-action@cross
+
+      - name: Build
+        shell: bash
+        env:
+          DEVFORGE_VERSION: ${{ inputs.tag }}
+        run: |
+          mkdir -p dist
+          if [ "${{ matrix.use_cross }}" = "true" ]; then
+            cross build --release --locked --target "${{ matrix.target }}"
+          else
+            cargo build --release --locked --target "${{ matrix.target }}"
+          fi
+
+          if [[ "${{ matrix.asset }}" == *.exe ]]; then
+            cp "target/${{ matrix.target }}/release/devforge.exe" "dist/${{ matrix.asset }}"
+          else
+            cp "target/${{ matrix.target }}/release/devforge" "dist/${{ matrix.asset }}"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: dist/${{ matrix.asset }}
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create checksums
+        run: cd dist && sha256sum * > checksums.txt
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
+          generate_release_notes: true
+          files: |
+            dist/*

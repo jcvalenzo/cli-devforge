@@ -1,43 +1,41 @@
-VERSION=$(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
-LDFLAGS=-s -w -X github.com/jcvalenzo/cli-devforge/cmd.version=$(VERSION)
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
+export DEVFORGE_VERSION := $(VERSION)
 
-.PHONY: build build-all test install uninstall clean all lint fmt vet coverage
+CARGO ?= cargo
+
+.PHONY: build test install uninstall clean all lint fmt fmt-check vet coverage
 
 build:
-	go build -ldflags "$(LDFLAGS)" -o bin/devforge .
-
-build-all:
-	mkdir -p dist
-	GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/devforge-linux-amd64 .
-	GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o dist/devforge-linux-arm64 .
-	GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/devforge-darwin-amd64 .
-	GOOS=darwin GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o dist/devforge-darwin-arm64 .
-	GOOS=windows GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/devforge-windows-amd64.exe .
+	$(CARGO) build --release --locked
+	mkdir -p bin
+	cp target/release/devforge bin/devforge
 
 test:
-	go test -v -coverprofile=coverage.out ./...
-
-vet:
-	go vet ./...
+	$(CARGO) test --all-features --locked
 
 fmt:
-	gofmt -s -w .
-	@test -z "$$(gofmt -l .)" || (echo "Code not formatted. Run 'make fmt'" && exit 1)
+	$(CARGO) fmt --all
+
+fmt-check:
+	$(CARGO) fmt --all -- --check
 
 lint:
-	golangci-lint run
+	$(CARGO) clippy --all-targets --all-features --locked -- -D warnings
+
+vet: lint
 
 coverage:
-	go test -coverprofile=coverage.out ./...
-	go tool cover -html=coverage.out -o coverage.html
+	@command -v cargo-llvm-cov >/dev/null 2>&1 || { echo "cargo-llvm-cov not installed. Run: cargo install cargo-llvm-cov"; exit 1; }
+	$(CARGO) llvm-cov --all-features --lcov --output-path coverage.lcov
 
 install:
-	go install -ldflags "$(LDFLAGS)" .
+	$(CARGO) install --path . --locked --force
 
 uninstall:
-	rm -f $(shell go env GOPATH)/bin/cli-devforge
+	-$(CARGO) uninstall devforge
 
 clean:
-	rm -rf bin/ dist/ coverage.out coverage.html
+	$(CARGO) clean
+	rm -rf bin dist coverage.out coverage.html coverage.lcov
 
-all: clean fmt vet lint build test
+all: clean fmt-check lint build test

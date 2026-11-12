@@ -8,7 +8,7 @@ Project scaffold generator based on prefix-based naming conventions.
 
 ## Prerrequisitos / Prerequisites
 
-- **Go** >= 1.22 ([https://go.dev/dl/](https://go.dev/dl/))
+- **Rust** stable ([https://rustup.rs/](https://rustup.rs/))
 - **Git**
 - **GitHub CLI (gh)** (opcional / optional) — para `gh repo create`
 
@@ -25,16 +25,22 @@ make install
 **Verificar / Verify:**
 
 ```bash
-~/go/bin/cli-devforge version
-# → devforge v1.0.0 (si hay tag) o devforge dev
+~/.cargo/bin/devforge version
+# → devforge v0.5.0 (si hay tag) o devforge dev
 ```
 
-El binario se instala en `~/go/bin/cli-devforge`. Para usarlo sin ruta completa, agrega `~/go/bin` a tu PATH:
+El binario se instala en `~/.cargo/bin/devforge`. Para usarlo sin ruta completa, agrega `~/.cargo/bin` a tu PATH:
 
-The binary is installed to `~/go/bin/cli-devforge`. To use it without full path, add `~/go/bin` to your PATH:
+The binary is installed to `~/.cargo/bin/devforge`. To use it without full path, add `~/.cargo/bin` to your PATH:
 
 ```bash
-export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+```
+
+También puedes instalar directamente desde Git / You can also install directly from Git:
+
+```bash
+cargo install --git https://github.com/jcvalenzo/cli-devforge --locked
 ```
 
 Para instrucciones detalladas por sistema operativo (macOS, Linux, Windows), ver [INSTALL.md](INSTALL.md).
@@ -46,23 +52,52 @@ For detailed per-OS instructions (macOS, Linux, Windows), see [INSTALL.md](INSTA
 ## Uso / Usage
 
 ```bash
+# Pantalla de inicio / Home screen
+devforge
+
 # Crear un proyecto / Create a project
-cli-devforge create api-catalog --lang go --author "yourname"
-cli-devforge create ms-auth --lang java --author "yourname"
-cli-devforge create web-admin --lang node --author "yourname"
-cli-devforge create worker-email --lang python --author "yourname"
+devforge create api-catalog --lang go --author "yourname"
+devforge create ms-auth --lang java --author "yourname"
+devforge create web-admin --lang node --author "yourname"
+devforge create worker-email --lang go --author "yourname"
 
 # Listar prefijos / List prefixes
-cli-devforge list
+devforge list
 
 # Ver versión / Show version
-cli-devforge version
+devforge version
 ```
+
+**Pantalla de inicio / Home screen:**
+
+```
+  ██████╗ ███████╗██╗   ██╗███████╗ ██████╗ ██████╗  ██████╗ ███████╗
+  ██╔══██╗██╔════╝██║   ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
+  ██║  ██║█████╗  ██║   ██║█████╗  ██║   ██║██████╔╝██║  ███╗█████╗
+  ██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝
+  ██████╔╝███████╗ ╚████╔╝ ██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗
+  ╚═════╝ ╚══════╝  ╚═══╝  ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+
+  devforge v0.5.0
+  Generador de scaffolds de proyecto basado en convenciones de prefijos.
+  20 prefijos disponibles.
+
+  Comandos
+    devforge list      Ver prefijos y lenguajes soportados
+    devforge --help    Ver todas las opciones
+
+  Ejemplo
+    devforge create api-catalog --lang go
+```
+
+La pantalla de inicio se muestra solo al ejecutar `devforge` sin argumentos. Respeta `NO_COLOR` y elimina los colores cuando la salida no es una terminal.
+
+The home screen is shown only when running `devforge` without arguments. It respects `NO_COLOR` and strips colors when output is not a terminal.
 
 **Salida post-creación / Post-creation output:**
 
 ```
-  Project "api-catalog" created successfully in ./api-catalog
+  Project "api-catalog" created successfully in ././api-catalog
 
   Next steps:
     cd api-catalog
@@ -104,6 +139,8 @@ cli-devforge version
 | `adapter-` | Adaptador a servicio externo / External service adapter | go |
 | `lab-` | Laboratorio / pruebas de cosas / Laboratory & experimentation | go, java, python, react |
 
+> **Nota / Note:** `worker-` anuncia `python`, pero todavía no tiene plantillas. Usa `--lang go` hasta que se agregue el scaffold de Python. / `worker-` advertises `python`, but it has no templates yet. Use `--lang go` until the Python scaffold is added.
+
 ---
 
 ## Desarrollo / Development
@@ -112,22 +149,19 @@ cli-devforge version
 # Compilar / Build
 make build
 
-# Compilar para todas las plataformas / Build for all platforms
-make build-all
-
 # Ejecutar tests / Run tests
 make test
 
-# Verificar formato / Check formatting
+# Formatear / Format
 make fmt
 
-# Verificar código / Vet code
-make vet
+# Verificar formato sin modificar / Check formatting without writing
+make fmt-check
 
 # Lint / Lint code
 make lint
 
-# Cobertura de tests / Test coverage
+# Cobertura de tests / Test coverage (requiere cargo-llvm-cov)
 make coverage
 
 # Compilar + testear (como el CI) / Build + test (like CI)
@@ -143,36 +177,46 @@ make uninstall
 make clean
 ```
 
+Equivalentes con Cargo / Cargo equivalents:
+
+```bash
+cargo build --release --locked
+cargo test --all-features --locked
+cargo clippy --all-targets --all-features --locked -- -D warnings
+cargo fmt --all -- --check
+```
+
 La versión del binario se inyecta automáticamente desde git tags:
 
 The binary version is injected automatically from git tags:
 
 ```bash
 ./bin/devforge version
-# Con tag: → devforge v1.0.0
-# Sin tag: → devforge v1.0.0-3-gabcdef
+# Con tag: → devforge v0.5.0
+# Sin tag: → devforge v0.5.0-3-gabcdef
 # En desarrollo: → devforge dev
 ```
+
+Las plantillas se embeben en el binario en tiempo de compilación; recompila después de editarlas.
+
+Templates are embedded into the binary at compile time; rebuild after editing them.
 
 ---
 
 ## CI / GitHub Actions
 
-El proyecto incluye workflows de GitHub Actions:
-
 | Workflow | Trigger | Checks |
 |----------|---------|--------|
-| `ci.yml` | Push a cualquier branch, PR | build, test, vet, fmt, lint |
-| `auto-release.yml` | Push a `main` | Auto-tag + build multi-platform + GitHub Release |
-| `release.yml` | Push manual de tag `v*.*.*` | Build multi-platform + GitHub Release (fallback) |
+| `ci.yml` | Push a cualquier branch, PR | fmt, clippy, tests en Linux/macOS/Windows |
+| `auto-release.yml` | Push a `main` | Auto-tag + llama a `release-build.yml` |
+| `release.yml` | Push de tag `v*.*.*` o manual | Llama a `release-build.yml` |
+| `release-build.yml` | Reutilizable | Build multi-platform + checksums + GitHub Release |
 
 ### Checks del CI
 
-- **build** — Compila el binario
-- **test** — Ejecuta tests con coverage
-- **vet** — Análisis estático de Go
-- **fmt** — Verifica formateo con gofmt
-- **lint** — Análisis con golangci-lint
+- **fmt** — `cargo fmt --all -- --check`
+- **clippy** — `cargo clippy -- -D warnings`
+- **test** — `cargo test --all-features --locked` en Linux, macOS y Windows
 
 ---
 
@@ -204,32 +248,26 @@ Al push a `main`, GitHub Actions:
 
 ### Release manual (fallback)
 
-También puedes crear un release manualmente con un tag:
-
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+git tag v0.5.0
+git push origin v0.5.0
 ```
+
+También puedes ejecutar `release.yml` con `workflow_dispatch` indicando el tag.
 
 ---
 
 ## Actualizar la aplicación / Updating the application
 
-Cuando se fusiona un PR de `develop` a `main`, el workflow *Auto Release* genera automáticamente una nueva versión `vX.Y.Z` con sus binarios para macOS, Linux y Windows.
-
-### Opciones para actualizar / Update options
-
-#### 1) Con `go install` (recomendado / recommended)
-Si tienes Go instalado, esta es la forma más sencilla y multiplataforma:
+### 1) Con `cargo install` (recomendado / recommended)
 
 ```bash
-go install github.com/jcvalenzo/cli-devforge@latest
+cargo install --git https://github.com/jcvalenzo/cli-devforge --locked
 ```
 
-Asegúrate de tener `$GOPATH/bin` (o `$HOME/go/bin`) en tu `PATH`. / Make sure `$GOPATH/bin` (or `$HOME/go/bin`) is in your `PATH`.
+Asegúrate de tener `~/.cargo/bin` en tu `PATH`. / Make sure `~/.cargo/bin` is in your `PATH`.
 
-#### 2) Con `make install` desde el repositorio local / From local repo with `make install`
-Si clonaste el repositorio y usaste `make install` anteriormente:
+### 2) Con `make install` desde el repositorio local
 
 ```bash
 cd cli-devforge
@@ -238,8 +276,9 @@ git pull origin main
 make install
 ```
 
-#### 3) Descargando el binario desde GitHub Releases (manual) / Download from GitHub Releases (manual)
-Descarga la última versión desde [GitHub Releases](https://github.com/jcvalenzo/cli-devforge/releases/latest). Elige el binario correcto según tu sistema operativo y arquitectura:
+### 3) Descargando el binario desde GitHub Releases
+
+Descarga la última versión desde [GitHub Releases](https://github.com/jcvalenzo/cli-devforge/releases/latest):
 
 | Sistema Operativo / OS | Arquitectura / Arch | Archivo a descargar / File |
 |-------------------------|---------------------|----------------------------|
@@ -253,42 +292,34 @@ Descarga la última versión desde [GitHub Releases](https://github.com/jcvalenz
 
 ```bash
 chmod +x devforge-<os>-<arch>
-# Mover a un directorio en PATH (ej. ~/.local/bin o /usr/local/bin)
-mv devforge-<os>-<arch> ~/.local/bin/cli-devforge
+mv devforge-<os>-<arch> ~/.local/bin/devforge
 ```
 
-> **Nota macOS (Gatekeeper):** Si el sistema bloquea la ejecución, puedes quitar la cuarentena:
+> **Nota macOS (Gatekeeper):** Si el sistema bloquea la ejecución:
 > ```bash
-> xattr -d com.apple.quarantine ~/.local/bin/cli-devforge
+> xattr -d com.apple.quarantine ~/.local/bin/devforge
 > ```
-> O bien permitirlo desde *Configuración del Sistema → Privacidad y Seguridad*.
-> 
-> **Note macOS (Gatekeeper):** If macOS blocks execution, remove the quarantine attribute or allow it in *System Settings → Privacy & Security*.
 
 **Windows:**
 
-1. Renombra `devforge-windows-amd64.exe` a `cli-devforge.exe`. / Rename `devforge-windows-amd64.exe` to `cli-devforge.exe`.
-2. Colócalo en un directorio incluido en tu `PATH` (ej. `C:\Users\<usuario>\go\bin\` o `C:\tools\`). / Place it in a directory in your `PATH` (e.g. `C:\Users\<user>\go\bin\` or `C:\tools\`).
-3. Si Windows SmartScreen aparece, selecciona *Más información → Ejecutar de todas formas*. / If Windows SmartScreen appears, click *More info → Run anyway*.
+1. Renombra `devforge-windows-amd64.exe` a `devforge.exe`.
+2. Colócalo en un directorio incluido en tu `PATH` (ej. `C:\tools\`).
+3. Si Windows SmartScreen aparece, selecciona *Más información → Ejecutar de todas formas*.
 
-**Verificar integridad (opcional) / Verify integrity (optional):**
+**Verificar integridad (opcional):**
 
 ```bash
 sha256sum -c checksums.txt  # Linux/macOS
 ```
 
-En Windows puedes comparar el hash con herramientas como `Get-FileHash` en PowerShell.
+### Migración desde la versión Go / Migrating from the Go version
 
-### Verificar la versión instalada / Verify installed version
+La versión anterior se instalaba como `cli-devforge` en `~/go/bin`. La versión Rust usa `devforge` en `~/.cargo/bin`. Para evitar conflictos:
 
 ```bash
-cli-devforge version
-# o / or
-devforge version
+rm -f ~/go/bin/cli-devforge
+which -a devforge cli-devforge
 ```
-
-Para más detalles por sistema operativo, consulta [INSTALL.md](INSTALL.md).  
-For detailed per-OS instructions, see [INSTALL.md](INSTALL.md).
 
 ---
 

@@ -1,0 +1,6 @@
+create
+monitoring-sample
+--lang
+prometheus
+--author
+Test Author

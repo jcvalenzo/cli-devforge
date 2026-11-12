@@ -1,0 +1,20 @@
+  created  Dockerfile
+  created  Makefile
+  created  README.md
+  created  cmd/stream/main.go
+  created  go.mod
+
+Project "stream-sample" created successfully in ././stream-sample
+
+Next steps:
+  cd stream-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create stream-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/stream-sample.git
+

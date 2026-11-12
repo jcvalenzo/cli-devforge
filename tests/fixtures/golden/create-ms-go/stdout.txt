@@ -1,0 +1,22 @@
+  created  Dockerfile
+  created  Makefile
+  created  README.md
+  created  cmd/server/main.go
+  created  docker-compose.yml
+  created  go.mod
+  created  internal/handler/handler.go
+
+Project "ms-sample" created successfully in ././ms-sample
+
+Next steps:
+  cd ms-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create ms-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/ms-sample.git
+

@@ -1,0 +1,19 @@
+  created  Dockerfile
+  created  Makefile
+  created  cmd/scheduler/main.go
+  created  go.mod
+
+Project "scheduler-sample" created successfully in ././scheduler-sample
+
+Next steps:
+  cd scheduler-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create scheduler-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/scheduler-sample.git
+

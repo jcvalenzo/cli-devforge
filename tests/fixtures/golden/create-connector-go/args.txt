@@ -1,0 +1,6 @@
+create
+connector-sample
+--lang
+go
+--author
+Test Author

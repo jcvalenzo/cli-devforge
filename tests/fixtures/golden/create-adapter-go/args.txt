@@ -1,0 +1,6 @@
+create
+adapter-sample
+--lang
+go
+--author
+Test Author
