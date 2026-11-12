@@ -1,0 +1,6 @@
+create
+cli-sample
+--lang
+go
+--author
+Test Author

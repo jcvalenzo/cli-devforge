@@ -1,0 +1,6 @@
+create
+consumer-sample
+--lang
+go
+--author
+Test Author

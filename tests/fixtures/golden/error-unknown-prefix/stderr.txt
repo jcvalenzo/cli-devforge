@@ -1,0 +1,13 @@
+Error: unknown prefix "unknown" in "unknown-name"
+Usage:
+  devforge create <prefix-name> [flags]
+
+Flags:
+  -a, --author string    author name
+  -h, --help             help for create
+  -l, --lang string      language for the project (default: prefix default)
+      --license string   project license (default "MIT")
+      --module string    Go module path (for Go projects)
+  -o, --output string    output directory (default ".")
+
+unknown prefix "unknown" in "unknown-name"

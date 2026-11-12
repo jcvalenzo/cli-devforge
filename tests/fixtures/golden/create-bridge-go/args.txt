@@ -1,0 +1,6 @@
+create
+bridge-sample
+--lang
+go
+--author
+Test Author

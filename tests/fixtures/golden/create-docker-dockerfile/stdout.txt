@@ -1,0 +1,17 @@
+  created  Dockerfile
+  created  nginx.conf
+
+Project "docker-sample" created successfully in ././docker-sample
+
+Next steps:
+  cd docker-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create docker-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/docker-sample.git
+

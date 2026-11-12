@@ -1,0 +1,6 @@
+create
+lab-sample
+--lang
+go
+--author
+Test Author

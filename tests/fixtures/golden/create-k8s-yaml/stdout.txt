@@ -1,0 +1,18 @@
+  created  deployment.yaml
+  created  ingress.yaml
+  created  service.yaml
+
+Project "k8s-sample" created successfully in ././k8s-sample
+
+Next steps:
+  cd k8s-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create k8s-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/k8s-sample.git
+

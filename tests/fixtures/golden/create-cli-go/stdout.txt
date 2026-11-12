@@ -1,0 +1,20 @@
+  created  Makefile
+  created  README.md
+  created  cmd/mycli/main.go
+  created  go.mod
+  created  internal/cmd/root.go
+
+Project "cli-sample" created successfully in ././cli-sample
+
+Next steps:
+  cd cli-sample
+  git init
+  git add .
+  git commit -m "Initial commit"
+
+Push to GitHub:
+  gh repo create cli-sample --public --source=. --remote=origin --push
+
+Or configure remote manually:
+  git remote add origin git@github.com:YOUR_GITHUB_USERNAME/cli-sample.git
+
