@@ -134,6 +134,17 @@ mod tests {
     }
 
     #[test]
+    fn templates_use_lf() {
+        for file in all_files() {
+            let path = file.path().to_string_lossy().replace('\\', "/");
+            assert!(
+                !file.contents().windows(2).any(|window| window == b"\r\n"),
+                "{path} uses CRLF; set text eol=lf in .gitattributes"
+            );
+        }
+    }
+
+    #[test]
     fn every_template_renders_with_known_fields() {
         let data = sample_data();
         let renderer = GoSubstitutionRenderer;

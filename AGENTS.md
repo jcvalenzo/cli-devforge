@@ -72,3 +72,4 @@ Other template rules:
 - `worker/python` is advertised but has no templates; `create worker-x --lang python` exits 1.
 - `.Date` is available to templates but currently unused.
 - The home banner is UTF-8 block art. `anstream` strips ANSI when piped or when `NO_COLOR` is set; it respects `CLICOLOR`/`CLICOLOR_FORCE` and supports Windows ANSI. The glyphs themselves still require a UTF-8-capable terminal.
+- `.gitattributes` pins `templates/**` and `tests/fixtures/golden/**` to LF. Keep new templates and fixtures LF; CRLF breaks parity on Windows and gets embedded into the Windows binary.

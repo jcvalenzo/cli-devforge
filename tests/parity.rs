@@ -48,6 +48,41 @@ fn expected_error_message(stderr: &str) -> Option<String> {
         .find_map(|line| line.strip_prefix("Error: ").map(str::to_string))
 }
 
+fn assert_lf(path: &Path, bytes: &[u8]) {
+    assert!(
+        !bytes.windows(2).any(|window| window == b"\r\n"),
+        "{} uses CRLF; set text eol=lf in .gitattributes",
+        path.display()
+    );
+}
+
+#[test]
+fn golden_fixtures_use_lf() {
+    let root = golden_root();
+    let mut cases = fs::read_dir(&root)
+        .expect("golden fixtures")
+        .map(|entry| entry.expect("entry").path())
+        .filter(|path| path.is_dir())
+        .collect::<Vec<_>>();
+    cases.sort();
+
+    assert!(!cases.is_empty(), "no golden fixtures found");
+
+    for case in cases {
+        for name in ["args.txt", "exit_code.txt", "stdout.txt", "stderr.txt"] {
+            let path = case.join(name);
+            let bytes = fs::read(&path)
+                .unwrap_or_else(|error| panic!("reading {}: {error}", path.display()));
+            assert_lf(&path, &bytes);
+        }
+
+        for (relative, bytes) in collect_tree(&case.join("tree")) {
+            let path = case.join("tree").join(&relative);
+            assert_lf(&path, &bytes);
+        }
+    }
+}
+
 #[test]
 fn matches_go_golden_fixtures() {
     let root = golden_root();

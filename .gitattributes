@@ -1,0 +1,4 @@
+# Templates are embedded at compile time and fixtures are compared byte-for-byte.
+# Keep both LF on every platform so Windows checkouts do not change behaviour.
+templates/** text eol=lf
+tests/fixtures/golden/** text eol=lf
